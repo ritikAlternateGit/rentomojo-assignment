@@ -1,0 +1,33 @@
+
+<div class="d-flex justify-content-center mt-4">
+  <mat-form-field>
+    <mat-label>Filter By Name or Company</mat-label>
+    <input (keyup)="filter($event)" type="text" matInput>
+  </mat-form-field>
+</div>
+
+
+<table mat-table [dataSource]="filteredUsers" class="mat-elevation-z8 table">
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+  
+    <!-- Company Column -->
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef> Company </th>
+      <td mat-cell *matCellDef="let element"> {{element.company.name}} </td>
+    </ng-container>
+  
+    <!-- Blogs Column -->
+    <ng-container matColumnDef="blogs">
+      <th mat-header-cell *matHeaderCellDef> Blogs </th>
+      <td mat-cell *matCellDef="let element"><a routerLink="posts/{{element.id}}">Link to blogs</a> </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  

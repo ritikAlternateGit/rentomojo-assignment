@@ -1,0 +1,18 @@
+<h1 class="p-3">Blogs</h1>
+
+<div class="d-flex mt-4 ml-4">
+        <mat-form-field>
+          <mat-label>Filter By Post title</mat-label>
+          <input (keyup)="filter($event)" type="text" matInput>
+        </mat-form-field>
+</div>
+
+<mat-card *ngFor="let post of filteredPosts" routerLink="/post/{{post.id}}" 
+          class="m-3"  style="cursor: pointer;">
+
+        <mat-card-title>{{post.title}}</mat-card-title>
+        <mat-card-actions class="text-primary text-right">
+                <a routerLink="/post/{{post.id}}">See more</a>
+        </mat-card-actions>
+
+</mat-card>

@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-center mt-4">
+    <mat-form-field>
+      <mat-label>Search Something in the Post</mat-label>
+      <input (keyup)="highlightText($event)" type="text" matInput>
+    </mat-form-field>
+  </div>
+
+<div *ngIf="post" class="p-4">
+    <h1 class="text-center mt-4" [innerHTML]="post.title | highlight: highlightedText"></h1>
+    <p class="p-4 text-justify" [innerHTML]="post.body | highlight: highlightedText"></p>
+    
+    <div class="d-flex justify-content-between mb-4">
+        <button mat-raised-button color="primary" (click)="loadComments()">Load comments</button>
+        <button mat-stroked-button color="warn" (click)="deletePost()">Delete Post</button>
+    </div>
+    
+    <div *ngFor="let comment of comments" class="mb-2">
+        <b>{{comment.name}}</b>
+        <p>{{comment.body}}</p>
+        <hr>
+    </div>
+</div>
+
