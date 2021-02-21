@@ -14,8 +14,8 @@ export class PostService {
     return this.http.get<Post>(`https://jsonplaceholder.typicode.com/posts/${postId}`);
   }
 
-  getPostsOfAUser(userId:number,skip:number, limit:number):Observable<Post[]>{
-    return this.http.get<Post[]>(`https://jsonplaceholder.typicode.com/posts?userId=${userId}&skip=${skip}&limit=${limit}`);
+  getPostsOfAUser(userId:number):Observable<Post[]>{
+    return this.http.get<Post[]>(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
   }
 
   getCommentsOfAPost(postId:Number):Observable<any[]> {

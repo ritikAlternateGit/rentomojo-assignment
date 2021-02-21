@@ -3,7 +3,7 @@
 <div class="d-flex mt-4 ml-4">
         <mat-form-field>
           <mat-label>Filter By Post title</mat-label>
-          <input (keyup)="filter($event)" type="text" matInput>
+          <input (keyup)="filterPostsByTitle($event)" type="text" matInput>
         </mat-form-field>
 </div>
 
@@ -16,3 +16,5 @@
         </mat-card-actions>
 
 </mat-card>
+
+<mat-paginator [length]="posts.length" [pageSize]="postLimitPerPage" (page)="pagination($event)"></mat-paginator>

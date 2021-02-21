@@ -12,32 +12,42 @@ export class PostComponent implements OnInit {
   posts:Post[] = [];
   filteredPosts:Post[] = [];
   userId:number;
+  postLimitPerPage:number = 4; //we can change it to any number
   constructor(private __postService: PostService, 
               private route: ActivatedRoute,
               private __loader: LoaderService) { }
 
   ngOnInit(): void {
-    this.__loader.show();
+    this.__loader.show(); 
     this.route.params.subscribe(params=>{
       this.userId = Number(params.userId);
-      this.__postService.getPostsOfAUser(this.userId,0,10).subscribe(posts=>{
+      this.__postService.getPostsOfAUser(this.userId).subscribe(posts=>{
         this.__loader.hide();
         this.posts = posts;
-        const tmp:Post[]= []; //temporary array to assign to filtered array, so that angular can detect change 
+
+        //deep cloning posts into filteredPosts
+        const tmp:Post[]= []; 
         this.posts.forEach(post=>tmp.push(post));
         this.filteredPosts = tmp;
+        this.filteredPosts = this.posts.slice(0,this.postLimitPerPage); //initial limit
       });
     })   
   }
 
-  filter(e):void{
+  filterPostsByTitle(e):void{
     var str = e.target.value.toLowerCase();
-    this.filteredPosts=this.posts.filter((post)=>{
+    this.filteredPosts=this.posts.filter((post,i)=>{
+      if(i>=this.postLimitPerPage){return false;}
       if(post.title.toLowerCase().includes(str)){
         return true;
       }
     });
   }
 
+  pagination(e){
+    const startIndex = e.pageIndex;
+    const endIndex = startIndex + e.pageSize;
+    this.filteredPosts = this.posts.slice(startIndex,endIndex);
+  }
   
 }

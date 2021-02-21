@@ -28,7 +28,10 @@ import { ShowErrorSnackbarComponent } from './common/show-error-snackbar/show-er
     HttpClientModule,
     AngularMaterialModule
   ],
-  providers: [LoaderService,{provide: ErrorHandler, useClass: GlobalErrorHandlerService}],
+  providers: [LoaderService,
+    //telling angular that don't use your default error handler,
+    //instead use GlobalErrorHandlerService which is created by me
+    {provide: ErrorHandler, useClass: GlobalErrorHandlerService}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
